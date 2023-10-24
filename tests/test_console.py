@@ -38,7 +38,7 @@ class TestHBNBCommand(unittest.TestCase):
     def test_show(self):
         with self.patched_stdout:
             self.hbnb.onecmd("create BaseModel")
-            self.hbnb.onecmd("show BaseModel " 
+            self.hbnb.onecmd("show BaseModel "
                              + self.mock_stdout.getvalue().strip())
             self.assertTrue(
                 self.mock_stdout.getvalue()
@@ -48,7 +48,7 @@ class TestHBNBCommand(unittest.TestCase):
     def test_destroy(self):
         with self.patched_stdout:
             self.hbnb.onecmd("create BaseModel")
-            self.hbnb.onecmd("destroy BaseModel " 
+            self.hbnb.onecmd("destroy BaseModel "
                              + self.mock_stdout.getvalue().strip())
             self.assertTrue(self.mock_stdout.getvalue().strip() != "")
 

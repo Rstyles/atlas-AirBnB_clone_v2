@@ -28,7 +28,9 @@ class TestHBNBCommand(unittest.TestCase):
             self.hbnb.onecmd("create BaseModel")
             self.assertTrue(
                 isinstance(
-                    storage.all()["BaseModel." + self.mock_stdout.getvalue().strip()],
+                    storage.all()[
+                        "BaseModel." + self.mock_stdout.getvalue().strip()
+                        ],
                     BaseModel,
                 )
             )
@@ -36,15 +38,18 @@ class TestHBNBCommand(unittest.TestCase):
     def test_show(self):
         with self.patched_stdout:
             self.hbnb.onecmd("create BaseModel")
-            self.hbnb.onecmd("show BaseModel " + self.mock_stdout.getvalue().strip())
+            self.hbnb.onecmd("show BaseModel " 
+                             + self.mock_stdout.getvalue().strip())
             self.assertTrue(
-                self.mock_stdout.getvalue().strip() != "** no instance found **"
+                self.mock_stdout.getvalue()
+                .strip() != "** no instance found **"
             )
 
     def test_destroy(self):
         with self.patched_stdout:
             self.hbnb.onecmd("create BaseModel")
-            self.hbnb.onecmd("destroy BaseModel " + self.mock_stdout.getvalue().strip())
+            self.hbnb.onecmd("destroy BaseModel " 
+                             + self.mock_stdout.getvalue().strip())
             self.assertTrue(self.mock_stdout.getvalue().strip() != "")
 
     def test_all(self):

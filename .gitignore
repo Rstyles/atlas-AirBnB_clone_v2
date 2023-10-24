@@ -160,5 +160,6 @@ cython_debug/
 #.idea/
 
 */__pycache__
+.vscode
 pyrightconfig.json
 run-tests.sh

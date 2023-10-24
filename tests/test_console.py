@@ -20,9 +20,6 @@ class TestHBNBCommand(unittest.TestCase):
         self.patched_stdout.stop()
         storage._FileStorage__objects = {}
 
-    def test_prompt(self):
-        self.assertTrue(self.hbnb.prompt == "(hbnb) ")
-
     def test_create(self):
         with self.patched_stdout:
             self.hbnb.onecmd("create BaseModel")

@@ -4,7 +4,6 @@ Module for testing db storage
 """
 
 import unittest
-from models.base_model import BaseModel
 
 
 class test_dbstorage(unittest.TestCase):

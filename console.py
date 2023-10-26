@@ -139,7 +139,7 @@ class HBNBCommand(cmd.Cmd):
             value = param.split("=")[1]
             if re.match(r'^"[^"]*"$', value):
                 # param surrounded by double quotes
-                value = value.strip("\"").replace("_", " ")
+                value = value[1:-1].replace("\\\"", "\"").replace("_", " ")
             elif re.match(r'^\d+\.\d+$', value):
                 # param is a float
                 try:
@@ -154,9 +154,9 @@ class HBNBCommand(cmd.Cmd):
                     pass
             if hasattr(new_instance, key):
                 setattr(new_instance, key, value)
+        storage.new(new_instance)
         storage.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """Help information for the create method"""

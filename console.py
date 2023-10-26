@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+import re
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -128,10 +129,32 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif args.split()[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
+        params = args.split()[1:]
+        param_dict = {}
+        for param in params:
+            key = param.split("=")[0]
+            value = param.split("=")[1]
+            if re.match(r'^"[^"]*"$', value):
+                # param surrounded by double quotes
+                value = value.strip("\"").replace("_", " ")
+            elif re.match(r'^\d+\.\d+$', value):
+                # param is a float
+                try:
+                    value = float(value)
+                except TypeError:
+                    pass
+            else:
+                # param is an integer
+                try:
+                    value = int(value)
+                except TypeError:
+                    pass
+            param_dict[key] = value
+        new_instance = HBNBCommand.classes[args.split()[0]]()
+        new_instance.__dict__.update(**param_dict)
         storage.save()
         print(new_instance.id)
         storage.save()

@@ -2,10 +2,10 @@
 
 CREATE DATABASE IF NOT EXISTS hbnb_test_db;
 
-CREATE USER IF NOT EXISTS 'hbtn_test'@'localhost' IDENTIFIED BY 'hbnb_test_pwd';
+CREATE USER IF NOT EXISTS 'hbnb_test'@'localhost' IDENTIFIED BY 'hbnb_test_pwd';
 
-GRANT ALL PRIVILEGES ON hbnb_test_db.* TO 'hbtn_user'@'localhost';
+GRANT ALL PRIVILEGES ON hbnb_test_db.* TO 'hbnb_test'@'localhost';
 
-GRANT SELECT ON hbnb_test_db.* TO 'hbtn_user'@'localhost';
+GRANT SELECT ON hbnb_test_db.* TO 'hbnb_test'@'localhost';
 
 FLUSH PRIVILEGES;

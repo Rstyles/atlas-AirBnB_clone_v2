@@ -144,13 +144,13 @@ class HBNBCommand(cmd.Cmd):
                 # param is a float
                 try:
                     value = float(value)
-                except TypeError:
+                except (TypeError, ValueError):
                     pass
             else:
                 # param is an integer
                 try:
                     value = int(value)
-                except TypeError:
+                except (TypeError, ValueError):
                     pass
             if hasattr(new_instance, key):
                 setattr(new_instance, key, value)

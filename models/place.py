@@ -9,26 +9,6 @@ from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 
 
-place_amenity = Table(
-    "place_amenity",
-    Base.metadata,
-    Column(
-        "place_id",
-        String(60),
-        ForeignKey("places.id"),
-        primary_key=True,
-        nullable=False,
-    ),
-    Column(
-        "amenity_id",
-        String(60),
-        ForeignKey("amenities.id"),
-        primary_key=True,
-        nullable=False,
-    ),
-)
-
-
 class Place(BaseModel, Base):
     __tablename__ = "places"
 
@@ -55,28 +35,7 @@ class Place(BaseModel, Base):
                     reviews_list.append(review)
             return reviews_list
 
-        @property
-        def amenities(self):
-            """getter"""
-            amenities_list = []
-
-            for amenity in list(models.storage.all(Amenity).values()):
-                if amenity.id in self.amenity_ids:
-                    amenities_list.append(amenity)
-            return amenities_list
-
-        @amenities.setter
-        def amenities(self, obj):
-            if type(obj) == Amenity:
-                self.amenity_ids.append(obj.id)
-
     else:
         reviews = relationship(
             "Review", backref="place", cascade="all, delete, delete-orphan"
-        )
-        amenities = relationship(
-            "Amenity",
-            secondary="place_amenity",
-            back_populates="place_amenities",
-            viewonly=False,
         )

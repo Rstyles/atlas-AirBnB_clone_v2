@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import os
-from models.base_model import BaseModel, Base
 from models.amenity import Amenity
 from models.city import City
 from models.place import Place
@@ -35,19 +34,18 @@ class DBStorage:
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
 
-    def all(self, cls=None):
+    def all(self, cls=None) -> dict:
+        """returns a dictionary of all objects of type cls. If None returns all"""
+        dictionary = {}
         if cls is None:
-            all_classes = [State, City, Amenity, Place, Review, User]
-            temp = []
-            for c in all_classes:
-                temp.extend(self.__session.query(c).all())
+            for obj in self.__session.query(
+                User, State, City, Amenity, Place, Review
+            ).all():
+                dictionary[type(obj).__name__ + "." + obj.id] = obj
         else:
-            temp = self.__session.query(cls).all()
-        new_dict = {}
-        for obj in temp:
-            key = "{}.{}".format(type(obj).__name__, obj.id)
-            new_dict[key] = obj
-        return new_dict
+            for obj in self.__session.query(cls).all():
+                dictionary[type(obj).__name__ + "." + obj.id] = obj
+        return dictionary
 
     def new(self, obj):
         """adds an object to the db"""

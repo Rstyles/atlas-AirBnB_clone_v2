@@ -5,6 +5,9 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from models.base_model import Base
 
 from models.user import User
 
@@ -17,9 +20,6 @@ class DBStorage:
 
     def __init__(self):
         """initializes the DBStorage"""
-        from sqlalchemy import create_engine
-        from sqlalchemy.orm import sessionmaker
-        from models.base_model import Base
 
         user = os.getenv("HBNB_MYSQL_USER")
         password = os.getenv("HBNB_MYSQL_PWD")
@@ -34,7 +34,7 @@ class DBStorage:
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
 
-    def all(self, cls=None) -> dict:
+    def all(self, cls=None):
         """returns a dictionary of all objects of type cls. If None returns all"""
         dictionary = {}
         if cls is None:

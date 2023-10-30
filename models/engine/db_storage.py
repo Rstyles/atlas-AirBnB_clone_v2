@@ -35,29 +35,19 @@ class DBStorage:
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
 
-    def all(self, cls=None) -> dict:
-        """returns a dictionary of all objects of type cls. If None returns all"""
-        classDict = {
-            "City": City,
-            "State": State,
-            "User": User,
-            "Place": Place,
-            "Review": Review,
-            "Amenity": Amenity,
-        }
-        objects = {}
+    def all(self, cls=None):
         if cls is None:
-            for c in classDict:
-                data = self.__session.query(classDict[c]).all()
-                for obj in data:
-                    objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
+            all_classes = [State, City, Amenity, Place, Review, User]
+            temp = []
+            for c in all_classes:
+                temp.extend(self.__session.query(c).all())
         else:
-            if isinstance(cls, str):
-                cls = classDict[cls]
-            data = self.__session.query(cls).all()
-            for obj in data:
-                objects[f"{obj.id}"] = obj
-        return objects
+            temp = self.__session.query(cls).all()
+        new_dict = {}
+        for obj in temp:
+            key = "{}.{}".format(type(obj).__name__, obj.id)
+            new_dict[key] = obj
+        return new_dict
 
     def new(self, obj):
         """adds an object to the db"""

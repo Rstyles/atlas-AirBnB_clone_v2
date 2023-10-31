@@ -35,17 +35,26 @@ class DBStorage:
         self.__session = Session()
 
     def all(self, cls=None):
-        """returns a dictionary of all objects of type cls. If None returns all"""
-        dictionary = {}
+        """Method that queries on the currect database session"""
+        objects_dictionary = {}
+
         if cls is None:
-            for obj in self.__session.query(
-                User, State, City, Amenity, Place, Review
-            ).all():
-                dictionary[type(obj).__name__ + "." + obj.id] = obj
+            objects_list = self.__session.query(State).all()
+            objects_list.extend(self.__session.query(City).all())
+            objects_list.extend(self.__session.query(User).all())
+            objects_list.extend(self.__session.query(Place).all())
+            objects_list.extend(self.__session.query(Review).all())
+            objects_list.extend(self.__session.query(Amenity).all())
         else:
-            for obj in self.__session.query(cls).all():
-                dictionary[type(obj).__name__ + "." + obj.id] = obj
-        return dictionary
+            if type(cls) == str:
+                cls = eval(cls)
+            objects_list = self.__session.query(cls).all()
+
+        for obj in objects_list:
+            key = "{}.{}".format(type(obj).__name__, obj.id)
+            objects_dictionary[key] = obj
+
+        return objects_dictionary
 
     def new(self, obj):
         """adds an object to the db"""

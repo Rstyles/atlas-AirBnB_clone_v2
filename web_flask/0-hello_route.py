@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 from flask import Flask, request
-
-# Create the Flask application instance
+"""Runs a Flask web application"""
+    
 app = Flask(__name__)
 
 # Define routes and views
 @app.route('/')
 def hello():
-    return 'Hello, World!'
+    return 'Hello HBNB!'
 
 # Run the Flask application
 if __name__ == '__main__':

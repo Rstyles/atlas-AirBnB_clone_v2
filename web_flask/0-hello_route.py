@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 from flask import Flask, request
 
 # Create the Flask application instance

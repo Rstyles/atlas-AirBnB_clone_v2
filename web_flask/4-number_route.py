@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Runs a Flask web application with 4 routes"""
+"""Runs a Flask web application with 5 routes"""
 from flask import Flask, request
 
 
@@ -25,6 +25,11 @@ def c(text):
 @app.route("/python/<text>", strict_slashes=False)
 def python(text):
     return "Python {}".format(text.replace("_", " "))
+
+
+@app.route("/number/<int:n>", strict_slashes=False)
+def number(n):
+    return "{:d} is a number".format(n)
 
 
 if __name__ == "__main__":

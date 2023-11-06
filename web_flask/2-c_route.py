@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Runs a Flask web application with 2 routes"""
+"""Runs a Flask web application with 3 routes"""
 from flask import Flask, request
 
 

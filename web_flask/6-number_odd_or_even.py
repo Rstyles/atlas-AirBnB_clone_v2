@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Runs a Flask web application with 5 routes"""
+"""Runs a Flask web application"""
 from flask import Flask, render_template, request
 
 

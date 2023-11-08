@@ -19,7 +19,7 @@ def states_list() -> str:
 
     :return: A string representing the rendered HTML template.
     """
-    states: List[Dict[str, str]] = storage.all(State).values()
+    states = storage.all(State).values()
     return render_template("7-states_list.html", states=states)
 
 

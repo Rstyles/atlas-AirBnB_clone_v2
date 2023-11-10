@@ -17,7 +17,7 @@ app = Flask(__name__)
 def states(state_id=None):
     states = storage.all(State).values()
     if state_id:
-        states = [state for state in states if state.id == state_id]
+        states = [st for st in states if st.id == state_id]
     return render_template("9-states.html", states=states)
 
 
@@ -27,4 +27,4 @@ def teardown_db(exception):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port=5000)

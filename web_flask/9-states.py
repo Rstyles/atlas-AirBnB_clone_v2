@@ -17,7 +17,10 @@ app = Flask(__name__)
 def states(state_id=None):
     states = storage.all(State).values()
     if state_id:
-        states = [st for st in states if st.id == state_id]
+        for st in states:
+            if st.id == state_id:
+                states = [st]
+                break
     return render_template("9-states.html", states=states)
 
 
